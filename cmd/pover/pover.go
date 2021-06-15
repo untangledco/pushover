@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"os"
 	"io"
-	"io/ioutil"
 	"path/filepath"
 
 	"git.sr.ht/~otl/pushover"
@@ -40,7 +39,7 @@ func main() {
 	}
 
 	lr := io.LimitReader(os.Stdin, pushover.MaxMsgLength)
-	b, err := ioutil.ReadAll(lr)
+	b, err := io.ReadAll(lr)
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
