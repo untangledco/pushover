@@ -1,3 +1,32 @@
+// Package pushover provides a small interface to send messages via the Pushover service
+// using its Message API.
+// There is no client to set up or state to manage; just create a message and send it.
+//
+// The most basic usage is sending a simple message. For example, to send "Helllo World!":
+//
+// 	msg := pushover.Message{
+//		User: "abcde12345",
+//		Token: "zxcvb6789",
+//		Message: "Hello World!"
+//	}
+//	if err := pushover.Push(msg); err != nil {
+//		return err
+//	}
+//
+// To send a message with high priority, with a title:
+//
+// 	msg := pushover.Message{
+//		User: "abcde12345",
+//		Token: "zxcvb6789",
+//		Message: "Hello World!",
+//		Title: "Greeting",
+//		Priority: PriorityHigh,
+//	}
+//	if err := pushover.Push(msg); err != nil {
+//		return err
+//	}
+//
+// For more detailed example usage, see cmd/pover/pover.go
 package pushover
 
 import (
