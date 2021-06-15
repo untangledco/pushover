@@ -1,0 +1,52 @@
+.TH POVER 1
+.SH NAME
+pover \- push a notification to Pushover
+.SH SYNOPSIS
+.B pover
+[
+.B -d
+]
+[
+.B -f
+.I file
+]
+.SH DESCRIPTION
+.I Pover
+pushes a notification to Pushover using text read from standard input as the message body.
+The
+.B -d
+flag enables debugging output.
+The
+.B -f
+flag sets credentials to be read from
+.IR file .
+.PP
+Credentials must be present in a credentials file.
+A credentials file is a newline-delimited text file.
+Lines beginning with "#" are treated as comments and ignored.
+The recognised keys in the credentials file are:
+.TP
+.B user
+Pushover account User key.
+.TP
+.B token
+API token.
+.SH EXAMPLES
+An example credentials file
+.EX
+	# for pushover application "shell"
+	user abcd12345
+	token zxcvbnm98765
+.EE
+.PP
+Send a message "Hello world",
+reading credentials from a non-default path
+.EX
+	echo "Hello world" | pover -f /tmp/creds
+.EE
+.SH FILES
+.B $HOME/.config/pover
+.TP
+default credentials file
+.SH SOURCE
+.B github.com/ollytom/pover

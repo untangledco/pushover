@@ -1,0 +1,75 @@
+.Dd $Mdocdate$
+.Dt pover 1
+.Os
+.Sh NAME
+.Nm pover
+.Nd send a notification to Pushover
+.Sh SYNOPSIS
+.Nm
+.Op Fl d
+.Op Fl f Ar file
+.Op Fl t Ar title
+.Sh DESCRIPTION
+.Nm
+sends a notification to Pushover using text read from standard input as the message body.
+.Pp
+The options are:
+.Bl -tag -width Ds
+.It Fl d
+Write debugging output to standard error.
+.It Fl f Ar file
+Sets configuration to be read from
+.Ar file .
+.It Fl t Ar title
+Sets the message title to
+.Ar title .
+By default there is no title.
+.El
+.Pp
+Credentials must be present in a configuration file.
+A configuration file is a newline-delimited text file.
+Lines beginning with
+.Dq #
+are treated as comments and ignored.
+Configuration is a series of key-value pairs separated by whitespace,
+one per line.
+The recognised keys in the credentials file are:
+.Bl -tag -width Ds
+.It user
+Pushover account user key.
+.It token
+API token.
+.El
+.Sh EXIT STATUS
+.Ex
+.Sh EXAMPLES
+An example configuration file:
+.Pp
+.Bd -literal -offset indent -compact
+# for pushover application "shell"
+user abcd12345
+token zxcvbnm98765
+.Ed
+.Pp
+Send the current date as a notification:
+.Pp
+.Dl date | pover
+.Pp
+Send a hello world notification, reading configuration from
+.Pa /etc/pover :
+.Pp
+.Dl echo 'hello world' | pover -f /etc/pover
+.Sh FILES
+The default configuration file location is as returned from Go's os.UserConfigDir().
+.Bl -tag -width Ds
+.It Pa $HOME/.config/pover
+On Unix.
+.It Pa $HOME/Library/Application\ Support/pover
+On Darwin.
+.It Pa %AppData%\\\pover
+On Windows.
+.It Pa $home/lib/pover
+On Plan 9.
+.El
+.Sh SEE ALSO
+.Lk "Pushover Message API documentation" https://pushover.net/api
