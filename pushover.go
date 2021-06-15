@@ -5,12 +5,20 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+	"strconv"
 	"strings"
 )
 
 const apiurl = "https://api.pushover.net/1/messages.json"
 const MaxMsgLength = 1024
 const MaxTitleLength = 250
+
+const (
+	PriorityLowest = -2 + iota
+	PriorityLow
+	PriorityNormal
+	PriorityHigh
+)
 
 // Message represents a message in the Pushover Message API.
 type Message struct {
@@ -55,6 +63,9 @@ func Push(m Message) error {
 	req.Add("user", m.User)
 	req.Add("title", m.Title)
 	req.Add("message", m.Message)
+	if m.Priority != 0 {
+		req.Add("priority", strconv.Itoa(m.Priority))
+	}
 	resp, err := http.PostForm(apiurl, req)
 	if err != nil {
 		return err
