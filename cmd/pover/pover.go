@@ -10,14 +10,18 @@ import (
 	"git.sr.ht/~otl/pushover"
 )
 
-const usage string = "usage: pover [-d] [-f file]"
+const usage string = "usage: pover [-d] [-f file] [-t title] [-p priority]"
 
 var debug *bool
 var configflag *string
+var priorityflag *int
+var titleflag *string
 
 func init() {
 	debug = flag.Bool("d", false, "debug")
 	configflag = flag.String("f", "", "path to configuration file")
+	priorityflag = flag.Int("p", 0, "priority")
+	titleflag = flag.String("t", "", "message title")
 	flag.Parse()
 }
 
@@ -55,6 +59,12 @@ func main() {
 		User: config.user,
 		Token: config.token,
 		Message: string(b),
+	}
+	if *titleflag != "" {
+		msg.Title = *titleflag
+	}
+	if *priorityflag != 0 {
+		msg.Priority = *priorityflag
 	}
 	if err := pushover.Push(msg); err != nil {
 		fmt.Fprintf(os.Stderr, "push message: %v\n", err)
