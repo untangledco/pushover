@@ -2,7 +2,7 @@
 // using its Message API.
 // There is no client to set up or state to manage; just create a message and send it.
 //
-// The most basic usage is sending a simple message. For example, to send "Helllo World!":
+// The most basic usage is sending a simple message. For example, to send "Hello World!":
 //
 // 	msg := pushover.Message{
 //		User: "abcde12345",
