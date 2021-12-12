@@ -7,7 +7,7 @@ import (
 	"io"
 	"path/filepath"
 
-	"git.sr.ht/~otl/pushover"
+	"olowe.co/pushover"
 )
 
 const usage string = "usage: pover [-d] [-f file] [-t title] [-p priority]"
